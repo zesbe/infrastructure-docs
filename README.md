@@ -280,6 +280,10 @@ lumina-redis      -> 6379
 | musik-admin | CNAME | CF Tunnel laptopdell-zesbe | Yes |
 | rima | CNAME | CF Tunnel rima-tunnel | Yes |
 | rima-api | CNAME | CF Tunnel rima-tunnel | Yes |
+| luminaai | CNAME | CF Tunnel rima-tunnel | Yes |
+| api-luminaai | CNAME | CF Tunnel rima-tunnel | Yes |
+
+> **Note:** `luminaai` dan `api-luminaai` adalah backward compatibility untuk frontend yang masih hardcoded.
 
 #### yudhalabs.dev
 | Record | Type | Target | Proxied |
@@ -338,11 +342,11 @@ ingress:
 | Project | Reason | Deleted Date |
 |---------|--------|--------------|
 | Replybox | Abandoned, incomplete source code | 22 Jan 2026 |
-| luminaai.zesbe.my.id | Rebranded to rima.zesbe.my.id | 22 Jan 2026 |
-| api-luminaai.zesbe.my.id | Rebranded to rima-api.zesbe.my.id | 22 Jan 2026 |
 | minimax.hallowa.id | Replaced by luminaai.zesbe.my.id | 22 Jan 2026 |
 | vscodeperamix.hallowa.id | VPS 137 cleanup | 22 Jan 2026 |
 | terminalpremix.hallowa.id | VPS 137 cleanup | 22 Jan 2026 |
+
+> **Note:** `luminaai.zesbe.my.id` dan `api-luminaai.zesbe.my.id` tetap aktif (via CF Tunnel) untuk backward compatibility dengan frontend yang masih hardcoded.
 
 ---
 
