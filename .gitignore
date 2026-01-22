@@ -1,0 +1,21 @@
+# Secrets - NEVER COMMIT
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.log
