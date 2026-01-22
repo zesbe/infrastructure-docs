@@ -13,7 +13,7 @@
 | :green_circle: | Musik App (FE) | musik.zesbe.my.id | Laptop | [musik-app](https://github.com/zesbe/musik-app) |
 | :green_circle: | Musik App (BE) | musik-api.zesbe.my.id | Laptop | [musik-app](https://github.com/zesbe/musik-app) |
 | :green_circle: | Musik Admin | musik-admin.zesbe.my.id | Laptop | [musik-app](https://github.com/zesbe/musik-app) |
-| :green_circle: | Lumina AI | luminaai.zesbe.my.id | VPS 60 | [Lumina-by-sveltekit](https://github.com/zesbe/Lumina-by-sveltekit) |
+| :green_circle: | Rima (AI Music) | rima.zesbe.my.id | VPS 60 | [Rima](https://github.com/zesbe/Rima) |
 | :yellow_circle: | Wacoex | yudhalabs.dev | VPS 137 | [waba-coex](https://github.com/zesbe/waba-coex) |
 | :green_circle: | KAS Kelas | kas-ibnu-sina.pages.dev | Cloudflare Pages | [KAS-KELAS-TERAKHIR-HARUS-BERES](https://github.com/zesbe/KAS-KELAS-TERAKHIR-HARUS-BERES) |
 | :green_circle: | Watermark Killer | watermark-tool-90f.pages.dev | Cloudflare Pages | [gemini-watermark-remover](https://github.com/zesbe/gemini-watermark-remover) |
@@ -57,17 +57,18 @@
 | **OS** | Ubuntu |
 
 **Running Services:**
-- Lumina AI Backend (port 8082)
-- Lumina AI Frontend (port 3004)
+- Rima Backend (localhost:8082 via CF Tunnel)
+- Rima Frontend (localhost:3004 via CF Tunnel)
 - PostgreSQL - lumina_ai database
 - Redis
-- Nginx (port 80, 443)
 
 **Docker Containers:**
-- `lumina-backend` - Go API
-- `lumina-frontend` - SvelteKit
+- `rima-backend` - Go API (127.0.0.1:8082)
+- `rima-frontend` - SvelteKit (127.0.0.1:3004)
 - `lumina-postgres` - PostgreSQL 16
 - `lumina-redis` - Redis cache
+
+**Cloudflare Tunnel:** `rima-tunnel` (e31e58bc-b9f3-4827-be6d-b72d87686bcc)
 
 **Storage:**
 - Audio files: `/var/lib/docker/volumes/lumina-ai-v2_lumina_uploads/_data/audio/`
@@ -133,32 +134,39 @@
 
 ---
 
-### 2. Lumina AI (Legacy Music App)
+### 2. Rima (AI Music Generator - Mobile)
 
-> Versi lama dari Musik App, masih running di VPS
+> AI Music Generator untuk Flutter mobile app
 
 | Property | Value |
 |----------|-------|
-| **Status** | :green_circle: Production (Legacy) |
-| **URL** | https://luminaai.zesbe.my.id |
-| **Device** | VPS 60 |
-| **Database** | lumina_ai (same as musik-app) |
+| **Status** | :green_circle: Production |
+| **Frontend URL** | https://rima.zesbe.my.id |
+| **API URL** | https://rima-api.zesbe.my.id |
+| **Device** | VPS 60 (via CF Tunnel) |
+| **Database** | lumina_ai |
 
 **Tech Stack:**
-- Frontend: SvelteKit
+- Frontend: SvelteKit (Web)
+- Mobile: Flutter (PRIMARY)
 - Backend: Go + Fiber
 - Database: PostgreSQL 16
 - AI: MiniMax API
 
 **Docker Containers:**
 ```bash
-lumina-backend    -> port 8082
-lumina-frontend   -> port 3004
-lumina-postgres   -> port 5432
-lumina-redis      -> port 6379
+rima-backend      -> 127.0.0.1:8082 (localhost only)
+rima-frontend     -> 127.0.0.1:3004 (localhost only)
+lumina-postgres   -> 5432
+lumina-redis      -> 6379
 ```
 
-**GitHub:** [zesbe/Lumina-by-sveltekit](https://github.com/zesbe/Lumina-by-sveltekit)
+**Cloudflare Tunnel:** `rima-tunnel` (e31e58bc-b9f3-4827-be6d-b72d87686bcc)
+
+**GitHub:**
+- Flutter: [zesbe/Rima](https://github.com/zesbe/Rima)
+- Backend: [zesbe/Lumina-backend](https://github.com/zesbe/Lumina-backend)
+- Web: [zesbe/Lumina-by-sveltekit](https://github.com/zesbe/Lumina-by-sveltekit)
 
 ---
 
@@ -270,7 +278,8 @@ lumina-redis      -> port 6379
 | musik | CNAME | CF Tunnel laptopdell-zesbe | Yes |
 | musik-api | CNAME | CF Tunnel laptopdell-zesbe | Yes |
 | musik-admin | CNAME | CF Tunnel laptopdell-zesbe | Yes |
-| luminaai | A | 168.110.212.151 (VPS 60) | Yes |
+| rima | CNAME | CF Tunnel rima-tunnel | Yes |
+| rima-api | CNAME | CF Tunnel rima-tunnel | Yes |
 
 #### yudhalabs.dev
 | Record | Type | Target | Proxied |
@@ -282,10 +291,11 @@ lumina-redis      -> port 6379
 
 ### Cloudflare Tunnels
 
-| Tunnel Name | Tunnel ID | Status |
-|-------------|-----------|--------|
-| laptopdell-zesbe | 546eeece-1cba-43f4-b8c4-c1c42ab3a8df | :green_circle: Active |
-| wacoex-tunnel | 8a31ce0d-f0c0-48a3-8a0d-d93d87e6617c | :yellow_circle: VPS Down |
+| Tunnel Name | Tunnel ID | Status | Device |
+|-------------|-----------|--------|--------|
+| laptopdell-zesbe | 546eeece-1cba-43f4-b8c4-c1c42ab3a8df | :green_circle: Active | Laptop |
+| rima-tunnel | e31e58bc-b9f3-4827-be6d-b72d87686bcc | :green_circle: Active | VPS 60 |
+| wacoex-tunnel | 8a31ce0d-f0c0-48a3-8a0d-d93d87e6617c | :yellow_circle: VPS Down | VPS 137 |
 
 ---
 
@@ -328,6 +338,8 @@ ingress:
 | Project | Reason | Deleted Date |
 |---------|--------|--------------|
 | Replybox | Abandoned, incomplete source code | 22 Jan 2026 |
+| luminaai.zesbe.my.id | Rebranded to rima.zesbe.my.id | 22 Jan 2026 |
+| api-luminaai.zesbe.my.id | Rebranded to rima-api.zesbe.my.id | 22 Jan 2026 |
 | minimax.hallowa.id | Replaced by luminaai.zesbe.my.id | 22 Jan 2026 |
 | vscodeperamix.hallowa.id | VPS 137 cleanup | 22 Jan 2026 |
 | terminalpremix.hallowa.id | VPS 137 cleanup | 22 Jan 2026 |
@@ -378,11 +390,11 @@ cd backend && go run main.go
 cd admin && npm run dev
 ```
 
-### Check Docker (VPS)
+### Check Docker (VPS 60)
 ```bash
 docker ps
-docker logs lumina-backend
-docker logs lumina-frontend
+docker logs rima-backend
+docker logs rima-frontend
 ```
 
 ### Cloudflare Tunnel Status
